@@ -1,33 +1,47 @@
-import bpy, math
+﻿import bpy
 import os
-from bpy.utils import register_class, unregister_class
 from subprocess import Popen
-from os import system, path, makedirs
-
+from os import path, makedirs
 
 def get_ruv_export_path():
-    _export_path = bpy.path.abspath('//') + bpy.context.preferences.addons[__package__].preferences.export_folder + '\\'
+    export_folder = bpy.context.preferences.addons[__package__].preferences.export_folder
+    if not export_folder:
+        self.report({'ERROR'}, "Export folder is not set.")
+        return None
+
+    _export_path = bpy.path.abspath(export_folder)
     if not path.exists(_export_path):
         makedirs(_export_path)
     return _export_path
 
-
 def ruv_filename(self, context):
     _object_name = bpy.context.active_object.name
     _export_path = get_ruv_export_path()
-    _export_file = _export_path + _object_name + '_ruv.fbx'
+    if not _export_path:
+        return None
 
-    if bpy.context.preferences.addons[__package__].option_save_before_export:
-        bpy.ops.wm.save_as_mainfile(filepath=bpy.data.filepath)
+    _export_file = os.path.join(_export_path, _object_name + '_ruv.fbx')
+
+    if bpy.context.preferences.addons[__package__].preferences.save_before_export:
+        if not bpy.data.is_saved:
+            self.report({'ERROR'}, "Please save the file before exporting.")
+            return None
+        try:
+            bpy.ops.wm.save_as_mainfile(filepath=bpy.data.filepath)
+        except Exception as e:
+            self.report({'ERROR'}, f"Failed to save the file: {e}")
+            return None
 
     return _export_file
 
-
 def ruv_fbx_export(self, context):
     _export_file = ruv_filename(self, context)
+    if not _export_file:
+        return None
+
     prefs = bpy.context.preferences.addons[__package__].preferences
     bpy.ops.export_scene.fbx(filepath=_export_file, use_selection=True, axis_forward=prefs.forward_axis,
-                             axis_up=prefs.up_axis,  filter_glob="*.fbx", global_scale=1.0, apply_unit_scale=True,
+                             axis_up=prefs.up_axis, filter_glob="*.fbx", global_scale=1.0, apply_unit_scale=True,
                              bake_space_transform=False, object_types={'MESH'}, use_mesh_modifiers=True,
                              mesh_smooth_type='OFF', use_mesh_edges=False, use_tspace=False, use_custom_props=False,
                              add_leaf_bones=False, primary_bone_axis='Y', secondary_bone_axis='X',
@@ -38,7 +52,6 @@ def ruv_fbx_export(self, context):
                              use_metadata=True)
     return _export_file
 
-
 class ruv_fbx_export_execute(bpy.types.Operator):
     bl_idname = "et_ruv.export"
     bl_label = "RizomUV"
@@ -46,21 +59,21 @@ class ruv_fbx_export_execute(bpy.types.Operator):
 
     def execute(self, context):
         _export_file = ruv_fbx_export(self, context)
+        if not _export_file:
+            return {'CANCELLED'}
+
         _rizom_path = bpy.context.preferences.addons[__package__].preferences.rizom_path
 
-        Popen([_rizom_path, _export_file])
+        try:
+            Popen([_rizom_path, _export_file])
+        except Exception as e:
+            self.report({'ERROR'}, f"Failed to open RizomUV: {e}")
+            return {'CANCELLED'}
+
         return {'FINISHED'}
 
-#class ruv_import(bpy.types.Operator):
-
-classes = (
-    ruv_fbx_export_execute,
-    ruv_fbx_export,
-)
 def register():
-    for cls in classes:
-        register_class(cls)
+    bpy.utils.register_class(ruv_fbx_export_execute)
 
 def unregister():
-    for cls in reversed(classes):
-        unregister_class(cls)
+    bpy.utils.unregister_class(ruv_fbx_export_execute)
