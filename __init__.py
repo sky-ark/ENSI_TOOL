@@ -1,9 +1,12 @@
 bl_info = {
     "name": "ENSI Tool Addon",
+    "description": "A simple tool to export objects to RizomUV",
     "author": "Renaux Alexandre",
     "version": (0, 1, 0),
     "blender": (4, 2, 1),
-    "category": "Object",
+    "category": "Import-Export",
+    "location": "View3D > Sidebar",
+    "doc_url": "https://github.com/sky-ark/ENSI_TOOL/tree/master",
 }
 
 import bpy

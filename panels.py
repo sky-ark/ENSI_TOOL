@@ -16,7 +16,9 @@ class VIEW3D_PT_ensi_tool(bpy.types.Panel):
         row = layout.row()
         row.operator("et_ruv.export", text="Export to RizomUV")
         row = layout.row()
-        row.operator("wm.url_open", text="Infos").url = "https://github.com/Ecole-des-Nouvelles-Images"
+        row.operator("et_ruv.import", text="Import from RizomUV")
+        row = layout.row()
+        row.operator("wm.url_open", text="Infos").url = "https://github.com/sky-ark/ENSI_TOOL/tree/master"
 
 def register():
     bpy.utils.register_class(VIEW3D_PT_ensi_tool)

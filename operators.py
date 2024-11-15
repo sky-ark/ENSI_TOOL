@@ -54,7 +54,7 @@ def ruv_fbx_export(self, context):
 
 class ruv_fbx_export_execute(bpy.types.Operator):
     bl_idname = "et_ruv.export"
-    bl_label = "RizomUV"
+    bl_label = "RizomUVexport"
     bl_description = "Export the selected object to RizomUV"
 
     def execute(self, context):
@@ -72,8 +72,42 @@ class ruv_fbx_export_execute(bpy.types.Operator):
 
         return {'FINISHED'}
 
+class ruv_fbx_import(bpy.types.Operator):
+    bl_idname = "et_ruv.import"
+    bl_label = "RizomUVimport"
+    bl_description = "Import from RizomUV"
+
+    def execute(self, context):
+        obj_selected = bpy.context.object
+        bpy.ops.object.mode_set(mode='OBJECT', toggle=False)
+
+        bpy.ops.import_scene.fbx(filepath=ruv_filename(self, context), axis_forward=prefs.forward_axis, axis_up=prefs.up_axis)
+
+        obj_imported = bpy.context.selected_objects[0]
+
+        obj_imported.select_set(True)
+        obj_selected.select_set(True)
+        bpy.context.view_layer.objects.active = obj_imported
+
+        bpy.ops.object.join_uvs()
+
+        obj_selected.select_set(False)
+
+        bpy.ops.object.delete()
+
+        bpy.context.view_layer.objects.active = obj_selected
+        obj_selected.select_set(True)
+
+        bpy.ops.object.mode_set(mode='EDIT', toggle=False)
+        bpy.ops.uv.seams_from_islands(mark_seams=True, mark_sharp=False)
+        bpy.ops.object.mode_set(mode='OBJECT', toggle=False)
+
+        return {'FINISHED'}
+
 def register():
     bpy.utils.register_class(ruv_fbx_export_execute)
+    bpy.utils.register_class(ruv_fbx_import)
 
 def unregister():
     bpy.utils.unregister_class(ruv_fbx_export_execute)
+    bpy.utils.unregister_class(ruv_fbx_import)
