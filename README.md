@@ -1,10 +1,11 @@
-ENSI TOOL 
+<h1 align="center">ENSI TOOL</h1>
 
-Bridge between Blender and Rizom 
+<h2>Bridge between Blender and <bold>Rizom</bold></h2>
 
-author : Renaux Alexandre
+Author : Renaux Alexandre
 
-to install the add-on : 
+
+<strong>To install the add-on : </strong>
 
 download the zip 
 
@@ -20,10 +21,10 @@ Install from Disk..
 
 Don't unzip ! select directly the zip
 
-Add the Rizom's path.
+Add the Rizom's path and choose the folder where you want your exports to be saved.
 
-Open the lateral tool panel by pressing **N **
+Open the lateral tool panel by pressing * N *
 
 ![](https://github.com/sky-ark/ENSI_TOOL/blob/master/wiki/displaypanel.png)
 
-Don't forget to save you .blend before proceeding 
+<strong> Don't forget to save your .blend file and select the object before proceeding the export ! </strong>
