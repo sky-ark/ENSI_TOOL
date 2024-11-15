@@ -13,6 +13,7 @@ class VIEW3D_PT_ensi_tool(bpy.types.Panel):
         layout.prop(prefs, "export_folder")
         layout.prop(prefs, "forward_axis")
         layout.prop(prefs, "up_axis")
+        layout.prop(prefs, "save_before_export")
         row = layout.row()
         row.operator("et_ruv.export", text="Export to RizomUV")
         row = layout.row()

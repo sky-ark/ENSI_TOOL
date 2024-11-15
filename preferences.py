@@ -16,7 +16,7 @@ class EnsiToolPreferences(bpy.types.AddonPreferences):
     )
 
     save_before_export: bpy.props.BoolProperty(
-        name="Save Before Export",
+        name="Auto-Save Before Export",
         description="Save the file before exporting",
         default=True
     )
