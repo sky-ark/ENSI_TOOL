@@ -13,13 +13,13 @@ Author : Renaux Alexandre
 
 - download the zip 
 
- ![](https://github.com/sky-ark/ENSI_TOOL/blob/master/wiki/zipdownload.png)
+ ![](https://github.com/sky-ark/ENSI_TOOL/blob/main/wiki/zipdownload.png)
 
 - Open Blender
 
 - Go to Edit/Settings/Add-ons 
 
-![](https://github.com/sky-ark/ENSI_TOOL/blob/master/wiki/addthezip.png)
+![](https://github.com/sky-ark/ENSI_TOOL/blob/main/wiki/addthezip.png)
 
 - click Install from Disk..
 
