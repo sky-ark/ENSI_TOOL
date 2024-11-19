@@ -25,10 +25,10 @@ Author : Renaux Alexandre
 
   > __Don't unzip ! select directly the zip__
 
-- Add the Rizom's path and choose the folder where you want your exports to be saved.
+- Add the <strong>Rizom' executable's path</strong> ( rizomuv.exe ) and choose the <strong>folder</strong> where you want your <strong> FBX's exports to be saved. </strong>
 
 - Open the lateral tool panel by pressing **N**
 
-![](https://github.com/sky-ark/ENSI_TOOL/blob/master/wiki/displaypanel.png)
+![](https://github.com/sky-ark/ENSI_TOOL/blob/main/wiki/displaypanel.png)
 
-- <strong> Don't forget to save your .blend file and select the object before proceeding the export ! </strong>
+- _Don't forget to __save your .blend file__ and __select the object__ before proceeding the export !_
