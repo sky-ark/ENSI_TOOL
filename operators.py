@@ -80,7 +80,6 @@ class ruv_fbx_import(bpy.types.Operator):
     def execute(self, context):
         obj_selected = bpy.context.object
         bpy.ops.object.mode_set(mode='OBJECT', toggle=False)
-        prefs = bpy.context.preferences.addons[__package__].preferences
         bpy.ops.import_scene.fbx(filepath=ruv_filename(self, context))
 
         obj_imported = bpy.context.selected_objects[0]
